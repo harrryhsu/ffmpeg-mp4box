@@ -1,0 +1,19 @@
+{
+  "name": "mp4box",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/app"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.2",
+    "mp4box": "^0.5.2",
+    "nodemon": "^3.0.3",
+    "ws": "^8.16.0"
+  }
+}

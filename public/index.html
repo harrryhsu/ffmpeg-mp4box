@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>WebCodec MP4 decode sample</title>
+</head>
+
+<body>
+
+	<table cellspacing="8" id="status">
+		<tr>
+			<th align="right">Demux</th>
+			<td id="demux">Not started</td>
+		</tr>
+		<tr>
+			<th align="right">Decode</th>
+			<td id="decode">Not started</td>
+		</tr>
+		<tr>
+			<th align="right">Render</th>
+			<td id="render">Not started</td>
+		</tr>
+	</table>
+
+	<canvas></canvas>
+
+	<script type="module">
+		const status = {
+			demux: document.querySelector("#demux"),
+			decode: document.querySelector("#decode"),
+			render: document.querySelector("#render"),
+		};
+
+		function setStatus (message) {
+			for (const key in message.data) {
+				status[key].innerText = message.data[key];
+			}
+		}
+
+		// Worker setup.
+		function start () {
+			const { host } = window.location
+			const canvas = document.querySelector("canvas").transferControlToOffscreen();
+			const worker = new Worker("./worker.js");
+			worker.addEventListener("message", setStatus);
+			worker.postMessage({
+				dataUri: `ws://${host}`,
+				rendererName: "webgl2",
+				canvas
+			}, [canvas]);
+		}
+
+		start();
+	</script>
+</body>
+
+</html>

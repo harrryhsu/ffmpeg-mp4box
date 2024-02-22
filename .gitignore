@@ -1,0 +1,5 @@
+ffmpeg.exe
+test.mp4
+/node_modules
+/.vscode
+package-lock.json
