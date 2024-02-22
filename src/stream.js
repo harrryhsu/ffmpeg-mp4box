@@ -1,5 +1,6 @@
 const child_process = require("child_process");
 const Events = require("events");
+const ffmpeg = require("@ffmpeg-installer/ffmpeg");
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -53,7 +54,7 @@ class Stream extends Events {
 
     this.info(`Stream ffmpeg args: ${this.spawnOptions.join(" ")}`);
 
-    this.stream = child_process.spawn(process.env.ffmpeg, this.spawnOptions, {
+    this.stream = child_process.spawn(ffmpeg.path, this.spawnOptions, {
       detached: false,
     });
 
