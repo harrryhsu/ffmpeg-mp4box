@@ -1,6 +1,5 @@
-importScripts("./mp4box.all.js");
+import MP4Box from "./mp4box.all.js";
 
-// Wraps an MP4Box File as a WritableStream underlying sink.
 class MP4FileSink {
   #setStatus = null;
   #file = null;
@@ -31,9 +30,7 @@ class MP4FileSink {
   }
 }
 
-// Demuxes the first video track of an MP4 file using MP4Box, calling
-// `onConfig()` and `onChunk()` with appropriate WebCodecs objects.
-class MP4Demuxer {
+export default class MP4Demuxer {
   #onConfig = null;
   #onChunk = null;
   #setStatus = null;
@@ -79,7 +76,11 @@ class MP4Demuxer {
     for (const entry of trak.mdia.minf.stbl.stsd.entries) {
       const box = entry.avcC || entry.hvcC || entry.vpcC || entry.av1C;
       if (box) {
-        const stream = new DataStream(undefined, 0, DataStream.BIG_ENDIAN);
+        const stream = new MP4Box.DataStream(
+          undefined,
+          0,
+          MP4Box.DataStream.BIG_ENDIAN
+        );
         box.write(stream);
         return new Uint8Array(stream.buffer, 8); // Remove the box header.
       }

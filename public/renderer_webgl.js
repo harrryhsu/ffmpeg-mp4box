@@ -93,3 +93,5 @@ class WebGLRenderer {
     gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
   }
 }
+
+export default WebGLRenderer;

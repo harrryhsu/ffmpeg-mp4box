@@ -41,11 +41,10 @@
 		function start () {
 			const { host } = window.location
 			const canvas = document.querySelector("canvas").transferControlToOffscreen();
-			const worker = new Worker("./worker.js");
+			const worker = new Worker("./worker.min.js");
 			worker.addEventListener("message", setStatus);
 			worker.postMessage({
 				dataUri: `wss://${host}`,
-				rendererName: "webgl2",
 				canvas
 			}, [canvas]);
 		}

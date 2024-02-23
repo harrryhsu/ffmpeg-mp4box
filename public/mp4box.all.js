@@ -9382,3 +9382,5 @@ MP4Box.DataStream = DataStream;
 if (typeof exports !== "undefined") {
   exports.createFile = MP4Box.createFile;
 }
+
+export default MP4Box;
