@@ -66,6 +66,8 @@ function start({ dataUri, canvas }) {
     },
   });
 
+  let isFirst = true;
+
   // Fetch and demux the media data.
   const demuxer = new MP4Demuxer(dataUri, {
     onConfig(config) {
@@ -76,6 +78,10 @@ function start({ dataUri, canvas }) {
       decoder.configure(config);
     },
     onChunk(chunk) {
+      if (isFirst && chunk.type === "delta") {
+        return;
+      }
+      isFirst = false;
       decoder.decode(chunk);
     },
     setStatus,
